@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link href="css/home-style.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Dancing+Script|Raleway:500,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+</head>
+<body>
+<!--    NavBar-->
+
+    <nav th:replace="layout/Layout :: nav"></nav>
+
+<!--Body-->
+    <div class="container-carousel">
+        <div class="col s12">
+            <h1 class="center-align titulo">Novedades</h1>
+
+            <div class="carousel center-align">
+                <div class="carousel-item">
+                    <h2 class="subtitulo">Donas</h2>
+                    <div class="linea-division"></div>
+                    <p class="sabor">Glaseadas </p>
+                    <img src="img/dona-01.jpg" alt="">
+                </div>
+                <div class="carousel-item">
+                    <h2 class="subtitulo">Pastel</h2>
+                    <div class="linea-division"></div>
+                    <p class="sabor">Chocolate </p>
+                    <img src="img/dona-02.jpg" alt="">
+                </div>
+                <div class="carousel-item">
+                    <h2 class="subtitulo">Pastel</h2>
+                    <div class="linea-division"></div>
+                    <p class="sabor">Chocolate </p>
+                    <img src="img/muffins-01.jpg" alt="">
+                </div>
+                <div class="carousel-item">
+                    <h2 class="subtitulo">Pastel</h2>
+                    <div class="linea-division"></div>
+                    <p class="sabor">Chocolate </p>
+                    <img src="img/muffins-02.jpg" alt="">
+                </div>
+                <div class="carousel-item">
+                    <h2 class="subtitulo">Pastel</h2>
+                    <div class="linea-division"></div>
+                    <p class="sabor">Chocolate </p>
+                    <img src="img/muffins-03.jpg" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <h4>Productos</h4>
+    <div class="container-cards" th:each="product : ${products}">
+
+        <div class="card">
+            <a th:href="@{/view(productId=${product?.id})}">
+                <img  src="img/img1.jpg">
+                <p>Producto 01</p>
+            </a>
+        </div>
+    </div>
+
+
+<!--Footer-->
+    <footer th:replace="layout/Layout :: footer"></footer>
+
+<!--Scripts-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script  src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+
+    <script src="js/home/home.js"></script>
+
+</body>
+</html>
