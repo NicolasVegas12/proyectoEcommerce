@@ -29,6 +29,10 @@ public class Product {
     @Column(name = "imagen")
     @Getter@Setter
     private String imagen;
+
+    @Getter@Setter
+    @Column(name="stock")
+    private int stock;
     @ManyToOne()
     @JoinColumn(name = "id_subCategory")
     @Getter@Setter
@@ -38,4 +42,21 @@ public class Product {
     @JoinColumn(name = "id_brand")
     @Getter@Setter
     private Brand brand;
+
+    public Product( String product, Double price, String color, String imagen, SubCategory subCategory, Brand brand,int stock) {
+        this.product = product;
+        this.price = price;
+        this.color = color;
+        this.imagen = imagen;
+        this.subCategory = subCategory;
+        this.brand = brand;
+        this.stock=stock;
+    }
+
+    public Product() {
+
+    }
+    public void restarStock(int stock){
+        this.stock -= stock;
+    }
 }

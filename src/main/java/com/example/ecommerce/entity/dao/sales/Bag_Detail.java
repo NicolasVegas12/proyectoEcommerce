@@ -19,6 +19,7 @@ public class Bag_Detail {
     private Double quantity;
 
     @OneToOne
+    @Getter@Setter
     @JoinColumn(name = "id_product")
     private Product product;
 

@@ -4,6 +4,7 @@ import com.example.ecommerce.entity.dao.login.Role;
 import com.example.ecommerce.entity.dao.login.User;
 import com.example.ecommerce.entity.dao.product.Brand;
 import com.example.ecommerce.entity.dao.product.Category;
+import com.example.ecommerce.entity.dao.product.Product;
 import com.example.ecommerce.entity.dao.product.SubCategory;
 import com.example.ecommerce.entity.dto.UserRegistrationDto;
 import com.example.ecommerce.repository.*;
@@ -34,6 +35,8 @@ public class SetupData implements ApplicationListener<ContextRefreshedEvent> {
     private ISubCategoryRepository subCategoryRepository;
     @Autowired
     private IBrandRepository brandRepository;
+    @Autowired
+    private IProductRepository productRepository;
 
     @Override
     @Transactional
@@ -46,7 +49,17 @@ public class SetupData implements ApplicationListener<ContextRefreshedEvent> {
         createCategoryIfNotFound("General");
         createSubCategoryIfNotFound("General");
         createBrandIfNotFound("Nike","img/brand/nike.jpg");
+        creatProductIfNotFound("af1",250.0,"White","img/product/af1.jpg",30);
         createUserIfNotFound(new UserRegistrationDto("admin","admin","admin@admin.com","123456"));
+    }
+
+    private Product creatProductIfNotFound(String s, Double l,String c,String img,int stock) {
+        Product product = productRepository.findProductByProductAndColor(s,c);
+        if(product==null){
+            product = new Product(s,l,c,img,subCategoryRepository.findSubCategoriesByIdSubCategorie(1L),brandRepository.findBrandByIdBrand(1L),stock);
+            productRepository.save(product);
+        }
+        return product;
     }
 
     private Brand createBrandIfNotFound(String newBrand,String img) {

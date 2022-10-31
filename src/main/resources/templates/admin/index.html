@@ -2,7 +2,6 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -49,6 +48,11 @@
                         <h1 class="h3 mb-0 text-gray-800">Ventas</h1>
 
                     </div>
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <a href="/sales-register" type="button" class="btn btn-primary">Crear</a>
+                    </div>
+
+                    <br>
                     <table class="table table-striped">
                         <thead>
                         <tr>
@@ -66,8 +70,8 @@
                             <td th:text="${sale.total}"></td>
                             <td th:text="${sale.fecha}"></td>
                             <td>
-                                <a href="" type="button" class="btn btn-primary">Editar</a>
-                                <a href="" type="button" class="btn btn-danger">Eliminar</a>
+                                <a  th:href="@{/sales-edit(id=${sale.idSale})}" type="button" class="btn btn-primary">Editar</a>
+                                <a th:href="@{/delete(id=${sale.idSale})}" type="button" class="btn btn-danger">Eliminar</a>
                             </td>
                         </tr>
 

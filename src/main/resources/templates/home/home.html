@@ -19,36 +19,12 @@
         <div class="col s12">
             <h1 class="center-align titulo">Novedades</h1>
 
-            <div class="carousel center-align">
+            <div class="carousel center-align" th:each="brand : ${brands}">
                 <div class="carousel-item">
-                    <h2 class="subtitulo">Donas</h2>
+                    <h2 th:text="${brand.brand}" class="subtitulo">Donas</h2>
                     <div class="linea-division"></div>
-                    <p class="sabor">Glaseadas </p>
-                    <img src="img/dona-01.jpg" alt="">
-                </div>
-                <div class="carousel-item">
-                    <h2 class="subtitulo">Pastel</h2>
-                    <div class="linea-division"></div>
-                    <p class="sabor">Chocolate </p>
-                    <img src="img/dona-02.jpg" alt="">
-                </div>
-                <div class="carousel-item">
-                    <h2 class="subtitulo">Pastel</h2>
-                    <div class="linea-division"></div>
-                    <p class="sabor">Chocolate </p>
-                    <img src="img/muffins-01.jpg" alt="">
-                </div>
-                <div class="carousel-item">
-                    <h2 class="subtitulo">Pastel</h2>
-                    <div class="linea-division"></div>
-                    <p class="sabor">Chocolate </p>
-                    <img src="img/muffins-02.jpg" alt="">
-                </div>
-                <div class="carousel-item">
-                    <h2 class="subtitulo">Pastel</h2>
-                    <div class="linea-division"></div>
-                    <p class="sabor">Chocolate </p>
-                    <img src="img/muffins-03.jpg" alt="">
+                    <p class="sabor">Nuevo </p>
+                    <img th:src="${brand.img}" src="img/dona-01.jpg" alt="">
                 </div>
             </div>
         </div>
@@ -58,8 +34,8 @@
 
         <div class="card">
             <a th:href="@{/view(productId=${product?.id})}">
-                <img  src="img/img1.jpg">
-                <p>Producto 01</p>
+                <img th:src="${product.imagen}" >
+                <p th:text="${product.product}">Producto 01</p>
             </a>
         </div>
     </div>

@@ -57,7 +57,7 @@
                     <a class="collapse-item" sec:authorize="isAuthenticated() && hasRole('ROLE_ADMIN')"  th:href="@{/tables}">Usuarios</a>
                     <a class="collapse-item" sec:authorize="isAuthenticated() && hasRole('ROLE_ADMIN')" th:href="@{/tables}">Productos</a>
                     <a class="collapse-item" sec:authorize="isAuthenticated() && hasRole('ROLE_ADMIN')" th:href="@{/tables}">Categorias</a>
-                    <a class="collapse-item" sec:authorize="isAuthenticated() && hasAnyRole('ROLE_ADMIN','ROLE_USER') " th:href="@{/tables}">Ventas</a>
+                    <a class="collapse-item" sec:authorize="isAuthenticated() && hasAnyRole('ROLE_ADMIN','ROLE_VENDOR') " th:href="@{/admin}">Ventas</a>
                 </div>
             </div>
         </li>

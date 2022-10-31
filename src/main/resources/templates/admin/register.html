@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Title</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+    <link
+            href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+            rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
+</head>
+<body  id="page-top">
+<!-- Page Wrapper -->
+<div id="wrapper">
+    <!-- Sidebar -->
+    <div th:replace="admin/layout/Layout :: nav"></div>
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+        <!-- Main Content -->
+        <div id="content">
+            <!-- Topbar -->
+            <div th:replace="admin/layout/Layout :: top"></div>
+            <!-- End of Topbar -->
+            <div class="container-fluid">
+                <!-- Page Heading -->
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <h1 class="h3 mb-0 text-gray-800">Registrar Ventas</h1>
+                </div>
+                <!--<form action="" method="post">
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Email address</label>
+                        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                            <option
+                                    th:each="product : ${products}"
+                                    th:text="${product.product}"
+                                    th:value="${product.id}"
+                            ></option>
+
+                        </select>
+                    </div>
+
+                    <a href="" type="button" class="btn btn-primary">Registrar</a>
+                </form>-->
+                <form th:action="@{/sales-register}" th:object="${venta}" method="post">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 th:text="(${venta.fecha != null} ? 'Editar Venta' : 'Agregar Venta')"></h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="form-group col-6">
+                                    <label >Codigo*</label>
+                                    <input type="text" th:field="*{idSale}" class="form-control" readonly>
+                                </div>
+
+                                <div class="form-group col-6">
+                                    <label >Fecha Emision</label>
+                                    <input type="date" th:field="*{fecha}" class="form-control" required>
+                                </div>
+                            </div>
+
+                            <hr class="my-2" style="background-color: #c4c4c4;">
+                            <div class="row py-2">
+                                <div class="col-12 text-center">
+                                    <h5>Detalle de Venta</h5>
+                                </div>
+                            </div>
+
+                            <div class="row" th:if="${not size}">
+                                <div class="col-12 pb-3">
+                                    <div class="d-flex justify-content-end">
+                                        <button type="button" class="btn btn-info" data-toggle="modal" data-target=".bs-example-modal-lg"  readonly>Agregar Producto</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-12">
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <td scope="col">Acciones</td>
+                                            <td scope="col">Código</td>
+                                            <td scope="col">Producto</td>
+                                            <td scope="col">Cantidad</td>
+                                            <td scope="col">price</td>
+                                            <td scope="col">Total</td>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="tableProductos">
+                                        <tr th:each="detalle:${venta.details}">
+                                            <td align="center"><a href="#" class="btn btn-danger btn-sm"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+                                            <td th:text="${detalle.product.id}"></td>
+                                            <td th:text="${detalle.product.product}"></td>
+                                            <td th:text="${detalle.quantity}"></td>
+                                            <td th:text="${detalle.product.price}"></td>
+                                            <td th:text="${detalle.quantity * detalle.product.price}"></td>
+                                        </tr>
+                                        </tbody>
+                                        <tfoot>
+
+                                        <tr>
+                                            <td colspan="4"></td>
+                                            <td><strong>Total:</strong></td>
+                                            <td th:if="${not size}"><span id="idtotal">0.00</span></td>
+                                            <td th:if="${size}"><span th:text="${venta.total}"></span> </td>
+                                        </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <input th:if="${not size}" type="submit" value="Guardar" class="btn btn-info">
+                            <a th:href="@{/admin}" class="btn btn-secondary">Volver</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div id="modalOpen" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-ld">
+            <div class="modal-content modal-lg">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Lista Productos</h5>
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="modal-body">
+                    <label for="productoSelected">Producto</label>
+                    <select id="productoSelected" name="productoSelected" class="form-control" aria-label="Default select example" onchange="getStockSelected()">
+                        <option value="-1" selected disabled>Selecciona un Producto</option>
+                        <option th:each="producto:${listProducts}" th:value="${producto.id +'_' + producto.product + '_' + producto.price + '_'+ producto.stock}" th:utext="${producto.product}"></option>
+
+                    </select>
+                    <div class="py-3 text-center">
+                        <h6>STOCK Disponible: - <span id="stockSelected"></span>-</h6>
+                    </div>
+                    <div>
+                        <label for="cantidadSelected">Cantidad</label>
+                        <input id="cantidadSelected" name="cantidadSelected" type="number" class="form-control" value="1" min="1" step="1" max="100">
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="agregarTabla()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Logout Modal-->
+<div th:replace="admin/layout/Layout :: logout"></div>
+
+<!-- Bootstrap core JavaScript-->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+
+
+<!-- Core plugin JavaScript-->
+<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="js/sb-admin-2.min.js"></script>
+
+<!-- Page level plugins -->
+<script src="vendor/chart.js/Chart.min.js"></script>
+
+<!-- Page level custom scripts -->
+<script src="js/demo/chart-area-demo.js"></script>
+<script src="js/demo/chart-pie-demo.js"></script>
+
+<script>
+    const getStockSelected = () =>{
+        pSelected = document.getElementById('productoSelected').value.split('_');
+        document.getElementById('stockSelected').innerHTML=pSelected[3];
+    }
+</script>
+<script>
+
+    let totales = 0;
+    let subtotal = 0;
+    let descuento = 0;
+    let arrayProctuctos=[];
+
+    const agregarTabla = ()=>{
+        vectorPro = document.getElementById('productoSelected').value.split('_');
+        let cantidadSelected =  document.getElementById('cantidadSelected').value
+        console.log(cantidadSelected);
+        console.log(vectorPro)
+        if(vectorPro[3] == 0){
+            alert('Stock agotado');
+            return;
+        }
+
+        if(cantidadSelected <=0 || document.getElementById('productoSelected').value <=0 || cantidadSelected>vectorPro[3]){
+            alert('Seleccione un producto y cantidad válida.');
+            console.log('Seleccione un producto y cantidad válida.');
+            return;
+        }
+
+
+        if(existeProducto(vectorPro[0], arrayProctuctos)){
+            alert('Ya ha seleccionado este producto');
+        }else{
+            arrayProctuctos.push(vectorPro[0]);
+
+            fila = '<tr id="filaP'+(vectorPro[0])+'">'
+
+            fila +=     '<td align="center"><a href="#" class="btn btn-danger btn-sm" onclick="eliminarProducto('+vectorPro[0]+')"><i class="fa fa-trash" aria-hidden="true"></i></a></td>'
+            fila +=     '<td><input class="form-control" type="hidden" name="idProducto[]" value="'+vectorPro[0]+'">'+vectorPro[0]+'</td>'
+            fila +=     '<td><input class="form-control" type="hidden" name="idDescripcion[]" value="'+vectorPro[1]+'">'+vectorPro[1]+'</td>'
+
+            fila +=     '<td><input id="filaCantidad'+(vectorPro[0])+'" min="1" class="form-control" style="width:70px;" type="number" step="1" min="1" max="'+vectorPro[3]+'" name="idCantidad[]" value="'+parseInt(cantidadSelected)+'" onchange="actualizarMontos()"></td>'
+            fila +=     '<td><input id="filaprice'+(vectorPro[0])+'" class="form-control" type="number" readonly name="idPrice[]" value="'+vectorPro[2]+'" ></td>'
+            fila +=     '<td><input id="filaSubTotal'+(vectorPro[0])+'" class="form-control" readonly type="text" value="'+ vectorPro[2]*parseInt(cantidadSelected) +'"></td>'
+            fila +='</tr>';
+            document.getElementById('tableProductos').innerHTML += fila;
+            actualizarMontos();
+            $('#modalOpen').modal('hide');
+        }
+
+    }
+
+    const actualizarMontos = () => {
+        total = 0;
+        subtotal = 0;
+        subTotalIndex = 0;
+        cantigv = 0;
+
+        for (let i in arrayProctuctos){
+            let valor = arrayProctuctos[i];
+            let cantidad = document.getElementById('filaCantidad'+valor).value;
+            let price = document.getElementById('filaprice'+valor).value;
+
+            subtotal += cantidad*price;
+            subTotalIndex = cantidad*price;
+            document.getElementById('filaSubTotal'+valor).value = parseFloat(subTotalIndex);
+        }
+
+        total = subtotal ;
+
+
+        document.getElementById('idtotal').innerHTML = parseFloat(total).toFixed(2);
+    }
+
+    const eliminarProducto = (i) => {
+        document.getElementById('filaP'+i).remove();
+        index = arrayProctuctos.indexOf(i);
+        arrayProctuctos.splice(index,1);
+        actualizarMontos();
+    }
+
+    const existeProducto = (producto, vector) => {
+        for(let i=0; i<vector.length; i++){
+            if(producto==vector[i]){
+                return true;
+            }
+        }
+        return false;
+    }
+
+</script>
+
+</body>
+</html>

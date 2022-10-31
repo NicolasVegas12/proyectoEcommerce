@@ -57,7 +57,9 @@ public class CustomWebSecurityConfigurer extends WebSecurityConfigurerAdapter {
                 , "/scss/**", "/vendor/**"
                 , "/favicon.ico"
                 ,"/"
-                ,"/view")
+                ,"/view"
+                ,"/assets/**"
+                ,"/style.css")
                 .permitAll()
                 /*.antMatchers("/admin").hasRole("[ROLE_ADMIN]")
                 .antMatchers("/vendor").hasRole("[ROLE_VENDOR]")*/

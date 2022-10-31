@@ -41,9 +41,11 @@ public class User {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_bag")
+    @Getter@Setter
     private Bag bag;
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,orphanRemoval = true)
+    @Getter@Setter
     private List<Sale> sale;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -56,12 +58,13 @@ public class User {
     @Getter@Setter
     private Collection<Role> roles;
 
-    public User( String firstName, String lastName, String email, String password,  Collection<Role> roles) {
+    public User( String firstName, String lastName, String email, String password,Bag bag,  Collection<Role> roles) {
 
         this.firstName = firstName;
         this.lastName = lastName;
         this.active = true;
         this.email = email;
+        this.bag = bag;
         this.password = password;
         this.roles = roles;
     }

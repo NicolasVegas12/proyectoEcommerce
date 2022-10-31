@@ -24,4 +24,5 @@ public class AdminController {
         model.addAttribute("sales",list);
         return "admin/index";
     }
+
 }

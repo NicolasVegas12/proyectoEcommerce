@@ -2,7 +2,9 @@ package com.example.ecommerce.service;
 
 import com.example.ecommerce.entity.dao.login.Role;
 import com.example.ecommerce.entity.dao.login.User;
+import com.example.ecommerce.entity.dao.sales.Bag;
 import com.example.ecommerce.entity.dto.UserRegistrationDto;
+import com.example.ecommerce.repository.IBagRepository;
 import com.example.ecommerce.repository.IRoleRepository;
 import com.example.ecommerce.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,8 @@ public class UserServiceImpl implements IUserService{
     private IUserRepository userRepository;
 
     @Autowired
+    private IBagRepository bagRepository;
+    @Autowired
     private IRoleRepository roleRepository;
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
@@ -37,11 +41,16 @@ public class UserServiceImpl implements IUserService{
 
     @Override
     public User save(UserRegistrationDto registrationDto) {
+        Bag bag =bagRepository.save(new Bag(
+                0.0
+        ));
+
         User user = new User(
                 registrationDto.getFirstName()
                 ,registrationDto.getLastName()
                 , registrationDto.getUserName()
                 ,passwordEncoder.encode(registrationDto.getPassword())
+                ,bag
                 , List.of(roleRepository.findByName("ROLE_ADMIN"))
         );
 

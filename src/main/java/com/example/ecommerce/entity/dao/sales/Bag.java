@@ -24,7 +24,15 @@ public class Bag {
     @Column(name = "total")
     private Double total;
 
+    public Bag(Double total) {
+        this.total = total;
+    }
+
     @OneToMany(mappedBy = "bag",cascade = CascadeType.ALL,orphanRemoval = true)
     @Getter@Setter
     private List<Bag_Detail> details;
+
+    public Bag() {
+
+    }
 }

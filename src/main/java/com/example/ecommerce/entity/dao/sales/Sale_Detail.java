@@ -12,14 +12,16 @@ public class Sale_Detail {
     @Id
     @Column(name = "id_sale_detail")
     @Getter@Setter
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idSaleDetail;
 
     @Column(name = "quantity")
     @Getter @Setter
-    private Double quantity;
+    private Integer quantity;
 
     @OneToOne
     @JoinColumn(name = "id_product")
+    @Getter@Setter
     private Product product;
 
     @ManyToOne
